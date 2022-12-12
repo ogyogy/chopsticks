@@ -25,7 +25,7 @@ public class Player {
         return hands[0].getFingerNumber() + hands[1].getFingerNumber();
     }
 
-    public Hand show() {
+    public int show() {
         // ランダムに自分の手を選択
         Random rand = new Random();
         int index = rand.nextInt(2);
@@ -37,10 +37,10 @@ public class Player {
             index = ~index;
         }
         // 選択した自分の手を返却
-        return this.hands[index];
+        return index;
     }
 
-    public Hand select(Hand[] hands) {
+    public int select(Hand[] hands) {
         // ランダムに相手の手を選択
         Random rand = new Random();
         int index = rand.nextInt(2);
@@ -52,7 +52,7 @@ public class Player {
             index = ~index;
         }
         // 選択した相手の手を返却
-        return hands[index];
+        return index;
     }
 
     public void printHands() {
@@ -60,5 +60,9 @@ public class Player {
                 this.name,
                 this.hands[0].getFingerNumber(),
                 this.hands[1].getFingerNumber()));
+    }
+
+    public Hand getHand(int index) {
+        return this.hands[index];
     }
 }
