@@ -19,4 +19,4 @@ cd chopsticks
 java -jar target/chopsticks-0.0.1-SNAPSHOT.jar
 ```
 
-Visit http://localhost:8080/greeting.
+Visit http://localhost:8080/.
