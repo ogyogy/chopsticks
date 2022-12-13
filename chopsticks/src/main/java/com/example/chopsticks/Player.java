@@ -18,8 +18,8 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.leftHand = new Hand();
-        this.rightHand = new Hand();
+        this.leftHand = new Hand(Player.LEFT);
+        this.rightHand = new Hand(Player.RIGHT);
     }
 
     public int getTotalFingerNumber() {
@@ -27,7 +27,7 @@ public class Player {
         return this.leftHand.getFingerNumber() + this.rightHand.getFingerNumber();
     }
 
-    public int show() {
+    public Hand show() {
         // ランダムに自分の手を選択
         Random rand = new Random();
         int index = rand.nextInt(2);
@@ -42,10 +42,10 @@ public class Player {
             selectedHand = index == Player.LEFT ? this.leftHand : this.rightHand;
         }
         // 選択した自分の手を返却
-        return index;
+        return selectedHand;
     }
 
-    public int select(Hand enemyLeftHand, Hand enemyRightHand) {
+    public Hand select(Hand enemyLeftHand, Hand enemyRightHand) {
         // ランダムに相手の手を選択
         Random rand = new Random();
         int index = rand.nextInt(2);
@@ -60,6 +60,6 @@ public class Player {
             selectedHand = index == Player.LEFT ? enemyLeftHand : enemyRightHand;
         }
         // 選択した相手の手を返却
-        return index;
+        return selectedHand;
     }
 }

@@ -18,15 +18,8 @@ public class Game {
         // ==========
         // 初期状態
         // ==========
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player1.getName(),
-                player1.getLeftHand().getFingerNumber(),
-                player1.getRightHand().getFingerNumber()));
-
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player2.getName(),
-                player2.getLeftHand().getFingerNumber(),
-                player2.getRightHand().getFingerNumber()));
+        this.addCurrentHandsMessage(player1);
+        this.addCurrentHandsMessage(player2);
 
         // ==========
         // 1ターン目
@@ -35,19 +28,12 @@ public class Game {
         this.messages.add("Turn 1");
 
         // プレイヤー1にどちらの手を出すか聞く
-        int indexPlayer1 = player1.show();
-        Hand selectedPlayer1Hand = indexPlayer1 == Player.LEFT ? player1.getLeftHand() : player1.getRightHand();
+        Hand selectedPlayer1Hand = player1.show();
 
         // プレイヤー1にプレイヤー2のどちらの手に攻撃するか聞く
-        int indexPlayer2 = player1.select(player2.getLeftHand(), player2.getRightHand());
-        Hand attackedPlayer2Hand = indexPlayer2 == Player.LEFT ? player2.getLeftHand() : player2.getRightHand();
+        Hand attackedPlayer2Hand = player1.select(player2.getLeftHand(), player2.getRightHand());
 
-        String message = String.format("%s %s -> %s %s",
-                player1.getName(),
-                indexPlayer1 == 0 ? 'L' : 'R',
-                player2.getName(),
-                indexPlayer2 == 0 ? 'L' : 'R');
-        this.messages.add(message);
+        this.addSelectedHandMessage(player1, player2, selectedPlayer1Hand, attackedPlayer2Hand);
 
         // 選択されたそれぞれの手に基づきプレイヤー2の手を更新
         attackedPlayer2Hand.update(selectedPlayer1Hand);
@@ -57,15 +43,8 @@ public class Game {
         // if (player2TotalFingerNumber == 0) {
         // }
 
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player1.getName(),
-                player1.getLeftHand().getFingerNumber(),
-                player1.getRightHand().getFingerNumber()));
-
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player2.getName(),
-                player2.getLeftHand().getFingerNumber(),
-                player2.getRightHand().getFingerNumber()));
+        this.addCurrentHandsMessage(player1);
+        this.addCurrentHandsMessage(player2);
 
         // ==========
         // 2ターン目
@@ -74,19 +53,12 @@ public class Game {
         this.messages.add("Turn 2");
 
         // プレイヤー2にどちらの手を出すか聞く
-        indexPlayer2 = player2.show();
-        Hand selectedPlayer2Hand = indexPlayer2 == Player.LEFT ? player2.getLeftHand() : player2.getRightHand();
+        Hand selectedPlayer2Hand = player2.show();
 
         // プレイヤー2にプレイヤー1のどちらの手に攻撃するか聞く
-        indexPlayer1 = player2.select(player1.getLeftHand(), player1.getRightHand());
-        Hand attackedPlayer1Hand = indexPlayer1 == Player.LEFT ? player1.getLeftHand() : player1.getRightHand();
+        Hand attackedPlayer1Hand = player2.select(player1.getLeftHand(), player1.getRightHand());
 
-        message = String.format("%s %s -> %s %s",
-                player2.getName(),
-                indexPlayer2 == 0 ? 'L' : 'R',
-                player1.getName(),
-                indexPlayer1 == 0 ? 'L' : 'R');
-        this.messages.add(message);
+        this.addSelectedHandMessage(player2, player1, selectedPlayer2Hand, attackedPlayer1Hand);
 
         // 選択されたそれぞれの手に基づきプレイヤー1の手を更新
         attackedPlayer1Hand.update(selectedPlayer2Hand);
@@ -96,15 +68,8 @@ public class Game {
         // if (player1TotalFingerNumber == 0) {
         // }
 
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player1.getName(),
-                player1.getLeftHand().getFingerNumber(),
-                player1.getRightHand().getFingerNumber()));
-
-        this.messages.add(String.format("%s: L = %d, R = %d",
-                player2.getName(),
-                player2.getLeftHand().getFingerNumber(),
-                player2.getRightHand().getFingerNumber()));
+        this.addCurrentHandsMessage(player1);
+        this.addCurrentHandsMessage(player2);
     }
 
     public String messageToString() {
@@ -113,10 +78,19 @@ public class Game {
         return message;
     }
 
-    public void addMessage(Player player) {
+    public void addCurrentHandsMessage(Player player) {
         this.messages.add(String.format("%s: L = %d, R = %d",
                 player.getName(),
                 player.getLeftHand().getFingerNumber(),
                 player.getRightHand().getFingerNumber()));
+    }
+
+    public void addSelectedHandMessage(Player firstPlayer, Player secondPlayer, Hand firstHand, Hand secondHand) {
+        String message = String.format("%s %s -> %s %s",
+                firstPlayer.getName(),
+                firstHand.getId() == Player.LEFT ? 'L' : 'R',
+                secondPlayer.getName(),
+                secondHand.getId() == Player.LEFT ? 'L' : 'R');
+        this.messages.add(message);
     }
 }
