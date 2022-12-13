@@ -15,61 +15,38 @@ public class Game {
     }
 
     public void start(Player player1, Player player2) {
-        // ==========
-        // 初期状態
-        // ==========
-        this.addCurrentHandsMessage(player1);
-        this.addCurrentHandsMessage(player2);
+        // 攻撃プレイヤー
+        Player attackPlayer = player1;
+        // 守備プレイヤー
+        Player defensePlayer = player2;
 
-        // ==========
-        // 1ターン目
-        // ==========
+        // ゲーム開始をメッセージに追加
+        this.messages.add("Game start");
 
-        this.messages.add("Turn 1");
-
-        // プレイヤー1にどちらの手を出すか聞く
-        Hand selectedPlayer1Hand = player1.show();
-
-        // プレイヤー1にプレイヤー2のどちらの手に攻撃するか聞く
-        Hand attackedPlayer2Hand = player1.select(player2.getLeftHand(), player2.getRightHand());
-
-        this.addSelectedHandMessage(player1, player2, selectedPlayer1Hand, attackedPlayer2Hand);
-
-        // 選択されたそれぞれの手に基づきプレイヤー2の手を更新
-        attackedPlayer2Hand.update(selectedPlayer1Hand);
-        // プレイヤー2の残りの指の数を聞く
-        // int player2TotalFingerNumber = player2.getTotalFingerNumber();
-        // 0ならゲーム終了
-        // if (player2TotalFingerNumber == 0) {
-        // }
-
-        this.addCurrentHandsMessage(player1);
-        this.addCurrentHandsMessage(player2);
-
-        // ==========
-        // 2ターン目
-        // ==========
-
-        this.messages.add("Turn 2");
-
-        // プレイヤー2にどちらの手を出すか聞く
-        Hand selectedPlayer2Hand = player2.show();
-
-        // プレイヤー2にプレイヤー1のどちらの手に攻撃するか聞く
-        Hand attackedPlayer1Hand = player2.select(player1.getLeftHand(), player1.getRightHand());
-
-        this.addSelectedHandMessage(player2, player1, selectedPlayer2Hand, attackedPlayer1Hand);
-
-        // 選択されたそれぞれの手に基づきプレイヤー1の手を更新
-        attackedPlayer1Hand.update(selectedPlayer2Hand);
-        // プレイヤー1の残りの指の数を聞く
-        // int player1TotalFingerNumber = player1.getTotalFingerNumber();
-        // 0ならゲーム終了
-        // if (player1TotalFingerNumber == 0) {
-        // }
-
-        this.addCurrentHandsMessage(player1);
-        this.addCurrentHandsMessage(player2);
+        for (int i = 0; i < 10; i++) {
+            // ターン数をメッセージに追加
+            this.messages.add(String.format("Turn %d", i + 1));
+            // 現在の手をメッセージに追加
+            this.addCurrentHandsMessage(player1);
+            this.addCurrentHandsMessage(player2);
+            // 攻撃プレイヤーにどちらの手を出すか聞く
+            Hand attackHand = attackPlayer.show();
+            // 攻撃プレイヤーに守備プレイヤーのどちらの手に攻撃するか聞く
+            Hand defenseHand = attackPlayer.select(defensePlayer.getLeftHand(), defensePlayer.getRightHand());
+            // 選択結果をメッセージに追加
+            this.addSelectedHandMessage(attackPlayer, defensePlayer, attackHand, defenseHand);
+            // 選択結果に基づき守備プレイヤーの手を更新
+            defenseHand.update(attackHand);
+            // 守備プレイヤーの残りの指の数を聞き0ならゲーム終了
+            if (defensePlayer.getTotalFingerNumber() == 0) {
+                this.messages.add(String.format("Winner is %s", attackPlayer.getName()));
+                break;
+            }
+            // 攻撃と守備のプレイヤーを交代する
+            Player tmp = attackPlayer;
+            attackPlayer = defensePlayer;
+            defensePlayer = tmp;
+        }
     }
 
     public String messageToString() {
