@@ -18,17 +18,24 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"Pivotal.vscode-boot-dev-pack"
+				"Pivotal.vscode-boot-dev-pack",
+				"esbenp.prettier-vscode"
 			],
 			"settings": {
 				"editor.formatOnPaste": true,
 				"editor.formatOnSave": true,
 				"editor.formatOnType": true,
 				"terminal.integrated.defaultProfile.linux": "zsh",
+				"[html]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
 				"[java]": {
 					"editor.codeActionsOnSave": {
 						"source.organizeImports": true
 					}
+				},
+				"[markdown]": {
+					"editor.formatOnSave": false
 				}
 			}
 		}
