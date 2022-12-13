@@ -4,9 +4,11 @@ import lombok.Data;
 
 @Data
 public class Hand {
+    private int id;
     private int fingerNumber;
 
-    public Hand() {
+    public Hand(int id) {
+        this.id = id;
         this.fingerNumber = 1;
     }
 
