@@ -7,7 +7,6 @@
 
   <body>
     <h1>Chopsticks</h1>
-    <div><button type="button" onclick="location.reload()">Reload</button></div>
     <th:block th:each="message, iterStat : ${messages}">
       <th:block th:text="${message}" />
       <!-- 最後の要素は改行しない -->
