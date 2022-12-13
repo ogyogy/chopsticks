@@ -18,8 +18,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"Pivotal.vscode-boot-dev-pack",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"Pivotal.vscode-boot-dev-pack"
 			],
 			"settings": {
 				"editor.formatOnPaste": true,
