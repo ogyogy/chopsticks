@@ -23,9 +23,10 @@ public class Game {
         // ゲーム開始をメッセージに追加
         this.messages.add("Game start");
 
-        for (int i = 0; i < 10; i++) {
+        int turn = 0;
+        while (true) {
             // ターン数をメッセージに追加
-            this.messages.add(String.format("Turn %d", i + 1));
+            this.messages.add(String.format("Turn %d", ++turn));
             // 現在の手をメッセージに追加
             this.addCurrentHandsMessage(player1);
             this.addCurrentHandsMessage(player2);
