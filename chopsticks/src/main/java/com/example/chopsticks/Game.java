@@ -50,12 +50,6 @@ public class Game {
         }
     }
 
-    public String messageToString() {
-        // 文字列はThymeleafのth:textでサニタイズされる
-        String message = String.join("\n", this.messages);
-        return message;
-    }
-
     public void addCurrentHandsMessage(Player player) {
         this.messages.add(String.format("%s: L = %d, R = %d",
                 player.getName(),

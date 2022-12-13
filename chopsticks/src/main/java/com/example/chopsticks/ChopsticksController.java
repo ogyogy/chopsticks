@@ -16,8 +16,7 @@ public class ChopsticksController {
         Game game = new Game();
         game.start(player1, player2);
         // メッセージをViewに設定
-        String message = game.messageToString();
-        model.addAttribute("message", message);
+        model.addAttribute("messages", game.getMessages());
         // Viewを返却
         return "index";
     }
