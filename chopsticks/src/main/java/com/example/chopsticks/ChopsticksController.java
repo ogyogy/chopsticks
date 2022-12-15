@@ -50,10 +50,15 @@ public class ChopsticksController {
             // プレイヤーがDBに未登録であれば生成
             player1 = new Player("Player 1");
             player2 = new Player("Player 2");
-            // プレイヤーをDBに登録
-            playerRepository.save(player1);
-            playerRepository.save(player2);
         }
+
+        // プレイヤー名を更新
+        player1.setName(player1Name);
+        player2.setName(player2Name);
+
+        // プレイヤーをDBに登録
+        playerRepository.save(player1);
+        playerRepository.save(player2);
 
         // ゲーム開始
         Game game = new Game();
