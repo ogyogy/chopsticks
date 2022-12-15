@@ -31,13 +31,16 @@ public class Game {
             this.addCurrentHandsMessage(player1);
             this.addCurrentHandsMessage(player2);
             // 攻撃プレイヤーにどちらの手を出すか聞く
-            Hand attackHand = attackPlayer.show();
+            int attackHandDirection = attackPlayer.show();
             // 攻撃プレイヤーに守備プレイヤーのどちらの手に攻撃するか聞く
-            Hand defenseHand = attackPlayer.select(defensePlayer.getLeftHand(), defensePlayer.getRightHand());
+            int defenseHandDirection = attackPlayer.select(defensePlayer);
             // 選択結果をメッセージに追加
-            this.addSelectedHandMessage(attackPlayer, defensePlayer, attackHand, defenseHand);
+            this.addSelectedHandMessage(attackPlayer, defensePlayer, attackHandDirection, defenseHandDirection);
+            // 攻撃プレイヤーの選択した手の指の数を取得
+            int attackHand = attackHandDirection == Player.LEFT ? attackPlayer.getLeftHand()
+                    : attackPlayer.getRightHand();
             // 選択結果に基づき守備プレイヤーの手を更新
-            defenseHand.update(attackHand);
+            defensePlayer.update(defenseHandDirection, attackHand);
             // 守備プレイヤーの残りの指の数を聞き0ならゲーム終了
             if (defensePlayer.getTotalFingerNumber() == 0) {
                 this.messages.add(String.format("Winner is %s", attackPlayer.getName()));
@@ -53,16 +56,17 @@ public class Game {
     public void addCurrentHandsMessage(Player player) {
         this.messages.add(String.format("%s: L = %d, R = %d",
                 player.getName(),
-                player.getLeftHand().getFingerNumber(),
-                player.getRightHand().getFingerNumber()));
+                player.getLeftHand(),
+                player.getRightHand()));
     }
 
-    public void addSelectedHandMessage(Player firstPlayer, Player secondPlayer, Hand firstHand, Hand secondHand) {
+    public void addSelectedHandMessage(Player firstPlayer, Player secondPlayer, int firstHandDirection,
+            int secondHandDirection) {
         String message = String.format("%s %s -> %s %s",
                 firstPlayer.getName(),
-                firstHand.getId() == Player.LEFT ? 'L' : 'R',
+                firstHandDirection == Player.LEFT ? 'L' : 'R',
                 secondPlayer.getName(),
-                secondHand.getId() == Player.LEFT ? 'L' : 'R');
+                secondHandDirection == Player.LEFT ? 'L' : 'R');
         this.messages.add(message);
     }
 }

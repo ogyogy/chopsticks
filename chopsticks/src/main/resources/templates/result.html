@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Chopsticks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Chopsticks</h1>
+    <th:block th:each="message, iterStat : ${messages}">
+      <th:block th:text="${message}" />
+      <!-- 最後の要素は改行しない -->
+      <br th:if="${!iterStat.last}" />
+    </th:block>
+  </body>
+</html>

@@ -7,10 +7,20 @@
 
   <body>
     <h1>Chopsticks</h1>
-    <th:block th:each="message, iterStat : ${messages}">
-      <th:block th:text="${message}" />
-      <!-- 最後の要素は改行しない -->
-      <br th:if="${!iterStat.last}" />
-    </th:block>
+    <form action="/result" method="get">
+      <div>
+        <label for="player1Name">Player1 Name</label>
+        <!-- DBからユーザー名を取得してvalueに設定する -->
+        <input name="player1Name" id="player1Name" th:value="${player1Name}" />
+      </div>
+      <div>
+        <label for="player2Name">Player2 Name</label>
+        <!-- TODO: DBからユーザー名を取得してvalueに設定する -->
+        <input name="player2Name" id="player2Name" th:value="${player2Name}" />
+      </div>
+      <div>
+        <button>Game start</button>
+      </div>
+    </form>
   </body>
 </html>
