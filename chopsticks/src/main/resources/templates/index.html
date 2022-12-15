@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Chopsticks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <h1>Chopsticks</h1>
+    <!-- TODO: POSTでユーザーデータを更新する -->
+    <form action="/result" method="get">
+      <div>
+        <label for="player1Name">Player1 Name</label>
+        <!-- TODO: DBからユーザー名を取得してvalueに設定する -->
+        <input name="player1Name" id="player1Name" value="" />
+      </div>
+      <div>
+        <label for="player2Name">Player2 Name</label>
+        <!-- TODO: DBからユーザー名を取得してvalueに設定する -->
+        <input name="player2Name" id="player2Name" value="" />
+      </div>
+      <div>
+        <button>Game start</button>
+      </div>
+    </form>
+  </body>
+</html>

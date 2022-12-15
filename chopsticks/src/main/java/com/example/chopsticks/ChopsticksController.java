@@ -13,6 +13,11 @@ public class ChopsticksController {
     @Autowired
     PlayerRepository playerRepository;
 
+    @GetMapping("/index")
+    public String index(Model model) {
+        return "index";
+    }
+
     @GetMapping("/result")
     public String result(Model model) {
         Player player1 = null;
