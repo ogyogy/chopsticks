@@ -11,13 +11,13 @@
     <form action="/result" method="get">
       <div>
         <label for="player1Name">Player1 Name</label>
-        <!-- TODO: DBからユーザー名を取得してvalueに設定する -->
-        <input name="player1Name" id="player1Name" value="" />
+        <!-- DBからユーザー名を取得してvalueに設定する -->
+        <input name="player1Name" id="player1Name" th:value="${player1Name}" />
       </div>
       <div>
         <label for="player2Name">Player2 Name</label>
         <!-- TODO: DBからユーザー名を取得してvalueに設定する -->
-        <input name="player2Name" id="player2Name" value="" />
+        <input name="player2Name" id="player2Name" th:value="${player2Name}" />
       </div>
       <div>
         <button>Game start</button>

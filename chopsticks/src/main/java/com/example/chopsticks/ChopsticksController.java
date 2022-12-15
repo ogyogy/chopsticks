@@ -15,6 +15,21 @@ public class ChopsticksController {
 
     @GetMapping("/")
     public String index(Model model) {
+        // DBからIDをキーにプレイヤーを検索
+        Optional<Player> player1Optional = playerRepository.findById(1);
+        Optional<Player> player2Optional = playerRepository.findById(2);
+
+        if (player1Optional.isPresent() && player2Optional.isPresent()) {
+            // プレイヤーがDBに登録済みであれば取得
+            String player1Name = player1Optional.get().getName();
+            String player2Name = player2Optional.get().getName();
+            model.addAttribute("player1Name", player1Name);
+            model.addAttribute("player2Name", player2Name);
+        } else {
+            model.addAttribute("player1Name", "Player 1");
+            model.addAttribute("player2Name", "Player 2");
+        }
+
         return "index";
     }
 
