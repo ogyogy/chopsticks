@@ -19,9 +19,7 @@ public class ChopsticksController {
     }
 
     @GetMapping("/result")
-    public String result(@RequestParam(required = false) String player1Name,
-            @RequestParam(required = false) String player2Name,
-            Model model) {
+    public String result(@RequestParam String player1Name, @RequestParam String player2Name, Model model) {
         Player player1 = null;
         Player player2 = null;
 
