@@ -13,8 +13,8 @@ public class ChopsticksController {
     @Autowired
     PlayerRepository playerRepository;
 
-    @GetMapping("/")
-    public String index(Model model) {
+    @GetMapping("/result")
+    public String result(Model model) {
         Player player1 = null;
         Player player2 = null;
 
@@ -43,7 +43,7 @@ public class ChopsticksController {
         model.addAttribute("messages", game.getMessages());
 
         // Viewを返却
-        return "index";
+        return "result";
     }
 
     @GetMapping("/greeting")
