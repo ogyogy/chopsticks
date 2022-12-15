@@ -1,5 +1,6 @@
 package com.example.chopsticks;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,11 +8,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ChopsticksController {
+    @Autowired
+    PlayerRepository playerRepository;
+
     @GetMapping("/")
     public String index(Model model) {
         // プレイヤー生成
         Player player1 = new Player("Player 1");
         Player player2 = new Player("Player 2");
+
+        // プレイヤーをDBに登録
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+
         // ゲーム開始
         Game game = new Game();
         game.start(player1, player2);
