@@ -16,13 +16,16 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     // プレイヤー名
     private String name;
     // 左手
     private int leftHand;
     // 右手
     private int rightHand;
+
+    public Player() {
+    }
 
     public Player(String name) {
         this.name = name;
