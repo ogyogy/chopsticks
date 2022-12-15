@@ -13,7 +13,7 @@ public class ChopsticksController {
     @Autowired
     PlayerRepository playerRepository;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(Model model) {
         return "index";
     }
