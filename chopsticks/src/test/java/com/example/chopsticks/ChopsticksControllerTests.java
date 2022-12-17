@@ -60,6 +60,7 @@ public class ChopsticksControllerTests {
 
     @Test
     public void shouldReturnPlayerName() throws Exception {
+        // プレイヤー検索のテスト
         // テスト対象のプレイヤーを定義
         String playerName = "Mock";
         Player player = new Player(playerName);
