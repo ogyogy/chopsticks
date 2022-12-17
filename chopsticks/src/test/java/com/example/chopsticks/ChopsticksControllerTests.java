@@ -1,14 +1,19 @@
 package com.example.chopsticks;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,6 +23,9 @@ import org.springframework.util.MultiValueMap;
 public class ChopsticksControllerTests {
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private PlayerRepository repository;
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
@@ -48,5 +56,16 @@ public class ChopsticksControllerTests {
         this.mockMvc.perform(get("/result").params(
                 params))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReturnPlayerName() throws Exception {
+        // テスト対象のプレイヤーを定義
+        String playerName = "Mock";
+        Player player = new Player(playerName);
+        // プレイヤー検索のスタブを作成
+        when(repository.findById(1)).thenReturn(Optional.of(player));
+        // プレイヤー検索のスタブを呼び出して設定したプレイヤーの名前が返ることを確認
+        assertThat(repository.findById(1).get().getName()).isEqualTo(playerName);
     }
 }
