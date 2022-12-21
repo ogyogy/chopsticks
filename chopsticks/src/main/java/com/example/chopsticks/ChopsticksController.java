@@ -19,16 +19,14 @@ public class ChopsticksController {
         Optional<Player> player1Optional = playerRepository.findById(1);
         Optional<Player> player2Optional = playerRepository.findById(2);
 
-        if (player1Optional.isPresent() && player2Optional.isPresent()) {
-            // プレイヤーがDBに登録済みであれば取得
-            String player1Name = player1Optional.get().getName();
-            String player2Name = player2Optional.get().getName();
-            model.addAttribute("player1Name", player1Name);
-            model.addAttribute("player2Name", player2Name);
-        } else {
-            model.addAttribute("player1Name", "Player 1");
-            model.addAttribute("player2Name", "Player 2");
-        }
+        // プレイヤーが登録済みの場合取得
+        // プレイヤーが未登録の場合はデフォルト値を設定
+        Player player1 = player1Optional.orElse(new Player("Player 1"));
+        Player player2 = player2Optional.orElse(new Player("Player 2"));
+
+        // Viewにプレイヤー名を設定
+        model.addAttribute("player1Name", player1.getName());
+        model.addAttribute("player2Name", player2.getName());
 
         return "index";
     }
